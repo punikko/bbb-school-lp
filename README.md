@@ -1,1 +1,1 @@
-# bbb-school-lp
+# BBB英会話スクール（LP）デモサイト
