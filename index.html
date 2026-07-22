@@ -2,15 +2,20 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+<!--
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>BBB英会話スクール</title>
     <!-- font -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
     <!-- css -->
     <link rel="stylesheet" href="css/style.css">
     <!-- script -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/jquery.inview.min.js"></script>
     <script src="js/script.js" defer></script>
 </head>
 <body>
@@ -25,7 +30,7 @@
             <nav class="header-nav">
                 <button class="menu-btn" id="open-btn" aria-label="メニュー"></button>
                 
-                <!-- メニュー画面（初期状態は非表示） -->
+                <!-- メニュー画面（初viewport期状態は非表示） -->
                 <div class="menu-overlay" id="menu-overlay">
                     <!-- ヘッダー部分 -->
                     <div class="menu-header">
@@ -43,8 +48,8 @@
                         </ul>
                     </nav>
                     <!-- 無料体験ボタン -->
-                     <div class="menu-cta">
-                        <a href="#" class="cta-btn">無料体験に申し込む</a>
+                     <div class="menu-trial">
+                        <a href="#" class="menu-trial-btn">無料体験に申し込む</a>
                     </div>
                 </div>
             </nav>
@@ -56,11 +61,18 @@
         <!-- メインビジュアル -->
         <div class="hero">
             <div class="hero-container">
-                <p class="white-text-shadow">
-                    話して学ぼう！<br>
-                    BBB英会話スクール
-                </p>
-                <a href="#" class="hero-trial-btn">無料体験はこちら</a>
+                <div class="hero-slider-box">
+                  <img src="img/mainvisual1.jpg" alt="画像1" class="hero-slide-img">
+                  <img src="img/mainvisual2.jpg" alt="画像2" class="hero-slide-img">
+                  <img src="img/mainvisual3.jpg" alt="画像3" class="hero-slide-img">
+                </div>
+                <div class="hero-title">
+                    <p class="hero-text">
+                        話して学ぼう！<br>
+                        BBB英会話スクール
+                    </p>
+                    <a href="#" class="hero-trial-btn">無料体験はこちら</a>
+                </div>
             </div>
         </div>
 
@@ -70,21 +82,21 @@
                 <h2>BBBが選ばれる理由</h2>
                 <div class="reason-wrapper">
                     <ul class="reason-list">
-                        <li class="reason-list-item">
+                        <li class="reason-list-item left">
                             <div class="reason-list-flex">
                                 <figure class="reason-list-img"><img src="img/icon-pc.png" alt=""></figure>
-                                <div class="text">
+                                <div class="reason-list-text">
                                     <p class="reason-list-title">オンライン対応</p>
-                                    <p class="reason-list-text">24時間いつでも受講できる！</p>
+                                    <p class="reason-list-detail">24時間いつでも受講できる！</p>
                                 </div>
                             </div>
                         </li>
-                        <li class="reason-list-item">
+                        <li class="reason-list-item right">
                             <div class="reason-list-flex">
                                 <figure class="reason-list-img"><img src="img/icon-teacher.png" alt=""></figure>
-                                <div class="text">
+                                <div class="reason-list-text">
                                     <p class="reason-list-title">講師はネイティブ</p>
-                                    <p class="reason-list-text">お気に入りの講師が自由に選べる！</p>
+                                    <p class="reason-list-detail">お気に入りの講師が自由に選べる！</p>
                                 </div>
                             </div>
                         </li>
@@ -106,7 +118,7 @@
                                     <img src="img/icon-student1.png" alt="">
                                     <p class="voice-list-name">○○○さん<br>大学生</p>
                                 </figure>
-                                <div class="text">
+                                <div class="voice-text">
                                     <p class="voice-list-text">
                                         テキストテキストテキストテキストテキストテキストテキストテキストテキスト<br>
                                         テキストテキストテキストテキストテキストテキストテキストテキストテキスト</p>
@@ -116,7 +128,7 @@
                         <!-- 吹き出し（顔左側） -->
                         <li class="voice-list-item">
                             <div class="voice-list-flex">
-                                <div class="text">
+                                <div class="voice-text">
                                     <p class="voice-list-text">
                                         テキストテキストテキストテキストテキストテキストテキストテキストテキスト</p>
                                 </div>
@@ -133,7 +145,7 @@
                                     <img src="img/icon-student3.png" alt="">
                                     <p class="voice-list-name">○○○さん<br>自営業</p>
                                 </figure>
-                                <div class="text">
+                                <div class="voice-text">
                                     <p class="voice-list-text">
                                         テキストテキストテキストテキストテキストテキストテキストテキストテキスト<br>
                                         テキストテキストテキストテキストテキストテキストテキストテキストテキスト<br>
@@ -181,7 +193,7 @@
             <div class="apply-container">
                 <p class="apply-copy">まずは無料で、BBBの英会話を試してみませんか？</p>
                 <p class="apply-text">今なら初月のレッスンを特別価格で受講できる割引クーポンをプレゼント！</p>
-                <a href="#" class="trial-btn">無料体験に申し込む</a>
+                <a href="#" class="apply-trial-btn">無料体験に申し込む</a>
             </div>
         </section>
 

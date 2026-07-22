@@ -135,7 +135,7 @@ a:hover {
     left: auto;
   
     /* 表示順設定（メニューより下に配置） */
-    z-index: 99;
+    z-index: 5;
 
     /* 3本線の描画 */
     background-image: linear-gradient(
@@ -261,7 +261,6 @@ a:hover {
 .menu-nav {
     margin-top: 60px;
     text-align: center;
-    font-size: 1rem;
 }
 .menu-nav ul {
     list-style: none;
@@ -276,15 +275,16 @@ a:hover {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
+    font-size: 1.6rem;
 }
 
 /* 無料体験ボタン */
-.menu-trial {
+.menu-cta {
     margin-top: 40px;
     margin-bottom: 40px;
     text-align: center;
 }
-.menu-trial-btn {
+.cta-btn {
     display: inline-block;
     padding: 16px 48px;
     color: #fff;
@@ -295,15 +295,8 @@ a:hover {
     position: relative;
 }
 
-.menu-trial-btn:hover {
-    /* ホバー時は赤枠線の白いボタンに変化 */
-    background-color: #fff;
-    color: #ff2a2a;
-    opacity: 1;
-}
-
 /* 右線と下線だけに表示する、ずらした白線 */
-.menu-trial-btn::after {
+.cta-btn::after {
     content: "";
     position: absolute;
   
@@ -450,90 +443,109 @@ h2::after {
 }
 
 .hero-container {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    /*padding-left: 10%;
+    padding-top: 20%;*/
+    /*
+    background: no-repeat url("../img/mainvisual-pc.jpg");
+    background-position: right;
+    background-size: 75% 100%;
+    aspect-ratio: 1050 / 720;
+*/
+    display: flex;
+    align-items: center;
+    /* 全体の最大幅 */
+    max-width: 100%;
+    margin: 0 auto;
+    /*padding: 40px 20px;*/
 
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    /*height: 100vh;*/
-
+/*
     @include sp {
-        /* 縦4列→縦1列（1カラム） */
-        grid-template-columns: 1fr;
-        height: auto; 
-    }
-
+        padding: 82% 24px 0 24px;
+        background: no-repeat url("../img/mainvisual-sp.jpg");
+        /* 背景画像位置、サイズ */
+        /*background-position: top center;
+        background-size: contain;
+        aspect-ratio: inherit;
+    }*/
 
 }
 
 /* 画像を重ねる親要素 */
 .hero-slider-box {
-
-    grid-column: 2 / 5;
-    grid-row: 1;
-
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
-    overflow: hidden;
-
-    /* afterの基準 */
-    position: relative;
-
-    @include sp {
-        /* 縦1列目のマスに配置 */
-        grid-column: 1;
-        /* 縦並びの1番目（上側）に指定 */
-        grid-row: 1;
-        /* 写真の高さ */
-        aspect-ratio: 375 / 300;
-    }
-}
-
-.hero-slider-box::after {
-
-    content: '';
-    /* 画像と全く同じ「1行1列目」に重ねて配置 */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;/*calc(100% - 1px)*/
     /*
-    grid-column: 1;
-    grid-row: 1;
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  */
+
+    /*flex: 1.2;                 /* 画像側を少し広く設定 */
     width: 100%;
-    height: 100%;*/
-    z-index: 5; /* 画像(z-indexなし)の上、テキスト(10)の下に挟む */
-  
-    /* 内側に向かって 60px の白いぼかしを入れる（数値はお好みで調整してください） */
-    box-shadow: inset 0 0 20px 20px #fff;
-  
-    /* クリックやリンクの邪魔をしないようにするお守りコード */
-    pointer-events: none; 
+    position: relative;
+    height: 780px;             /* スライダーの高さ */
+
+     /* ほんの少しだけぼかした白い内影 */
+    /*box-shadow: inset 0 0 4px 2px rgba(255, 255, 255, 0.9);*/
+    
+    @include sp {
+              display: grid; /* グリッドレイアウトを開始 */
+  grid-template-areas: "stack"; /* 「stack」というエリアを1つ定義 */
+  width: 100%;
+
+  aspect-ratio: 375 / 300;
+    }
 
 }
+.hero-slider-box::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 75%;
+  height: 100%;
+  /* 内側に向かって20pxの白いぼかしを入れる */
+  box-shadow: inset 0 0 20px 20px #fff;
 
+  @include sp {
+    width: 100%;
+  }
+}
 /* 3枚の画像を同じ位置に重ねる */
 .hero-slide-img {
-
-    grid-column: 1;
-    grid-row: 1;
-    width: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 75%;
     height: 100%;
-    min-height: 720px;
-
-    /* 縦横比を保ったままエリアいっぱいに広げる */
     object-fit: cover;
-
     /* 初期状態は透明 */
     opacity: 0;
   
     /* アニメーション設定（全体で6秒ループ） */
     animation: fadeSlider 18s infinite;
 
+    object-fit: cover; /* 縦横比を維持したまま、枠いっぱいに拡大・縮小して表示 */
+    object-position: center; /* 画像の中心を基準に表示 */
+
     @include sp {
-        min-height: auto;
+          grid-area: stack; /* すべての画像を同じエリアに配置して重ねる */
+  width: 100%;
+  height: auto;
+
+  object-fit: cover;
+    object-position: center; 
+  
+  /* アニメーション用の初期設定（例: フェードアウト状態） */
+  opacity: 0;
+  transition: opacity 1s;
+
     }
+
 }
+
 
 /* 画像ごとのアニメーション開始タイミングをずらす */
 .hero-slide-img:nth-child(1) { animation-delay: 0s; }
@@ -550,49 +562,33 @@ h2::after {
 }
 
 .hero-title {
-
-    grid-column: 1 / 4;
-    grid-row: 1;
+    /*flex: 1;*/
+    position: absolute; /* 👈 空間に浮かせて位置を自由に決める */
+    left: 140px;         /* 左端からの距離 */
+    top: 20%;
+    /*width: 100%;         /* 画像と重なるように横幅を設定 */
+    padding: 40px;
     z-index: 10;
-  
-    display: flex;
-    flex-direction: column;
-    /*justify-content: center;*/
-    margin-top: 280px;
-  
-    /* 文字の開始位置を左側に寄せる */
-    padding-left: 15%;
+    background-color: #333333;
 
     @include sp {
-        /* 縦1列目のマスに配置 */
-        grid-column: 1;
-        /* 縦並びの2番目（下側）に指定 */
-        grid-row: 2;
-        /* 重なりを解除 */
-        z-index: 1; 
-        
-        margin-top: 0;
-        /* 上下の余白を調整（写真と被らないため、paddingで余白を確保） */
-        padding: 20px 20px 0;
+        position: static; /* absoluteを解除して通常の並びにする */
+        padding: 0;
     }
 }
 
 .hero-text {
-    font-size: 2.875rem; /* 46px */
+    font-size: clamp(1.75rem, 1.3384rem + 1.7561vw, 2.875rem); /* 28px～46px */
     font-weight: bold;
     letter-spacing: 0.1em;
     line-height: 1.622em;
     text-shadow: -1px 2px 5px white;
-
-    /*margin-top: 17.5rem;*/
-
-    @include sp {
-        margin-top: 0;
-        font-size: 1.75rem; /* 28px */
-    }
 }
 
 .hero-trial-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     /* ボタンの横幅 */
     width: 464px;
@@ -723,7 +719,7 @@ h2::after {
     margin-left: auto;
 }
 
-.reason-list-flex .reason-list-text {
+.reason-list-flex .text {
     margin: 5px 0 0 30px;
     text-align: left;
 }
@@ -735,7 +731,7 @@ h2::after {
     line-height: 1;
 }
 
-.reason-list-detail {
+.reason-list-text {
     font-size: 1.125rem; /* 18px */
 }
 
@@ -802,7 +798,7 @@ h2::after {
    padding-top: 10px;
 }
 /* 奇数行 */
-.voice-list-item:nth-child(odd) .voice-list-flex .voice-text {
+.voice-list-item:nth-child(odd) .voice-list-flex .text {
     margin-left: 26px;
     @include sp {
         /* コメントを上に移動 */
@@ -821,7 +817,7 @@ h2::after {
     }
 }
 
-.voice-list-flex .voice-text {
+.voice-list-flex .text {
     max-width: 78.18%; /* 516px */
     height: auto;
     text-align: left;
@@ -834,7 +830,7 @@ h2::after {
     }
 }
 
-.voice-list-item:nth-child(even) .voice-list-flex .voice-text {
+.voice-list-item:nth-child(even) .voice-list-flex .text {
     margin-right: 26px;
 
     @include sp {
@@ -857,7 +853,7 @@ h2::after {
 }
 
 /* コメント吹き出し口を表示（奇数行） */
-.voice-list-item:nth-child(odd) .voice-list-flex .voice-text:after {
+.voice-list-item:nth-child(odd) .voice-list-flex .text:after {
     content: "";
     position: absolute;
     top: 101px;
@@ -878,7 +874,7 @@ h2::after {
 }
 
 /* コメント吹き出し口を表示（偶数行） */
-.voice-list-item:nth-child(even) .voice-list-flex .voice-text:after {
+.voice-list-item:nth-child(even) .voice-list-flex .text:after {
     content: "";
     position: absolute;
     top: 101px;
@@ -976,9 +972,6 @@ h2::after {
     font-size: clamp(1rem, 0.9543rem + 0.1951vw, 1.125rem); /* 16px～18px */
     font-weight: bold;
     line-height: 1.5;
-    @include sp {
-        margin-top: 8px;
-    }
 }
 
 .summary-text {
@@ -1015,12 +1008,9 @@ h2::after {
 .apply-text {
     font-size: clamp(1rem, 0.9543rem + 0.1951vw, 1.125rem); /* 16px～18px */
     margin-bottom: 40px;
-    @include sp {
-        margin-top: 10px;
-    }
 }
 
-.apply-trial-btn {
+.trial-btn {
     /* ボタンのサイズ */
     width: 100%;
     max-width: 860px;
@@ -1048,7 +1038,7 @@ h2::after {
     cursor: pointer;
 }
 
-.apply-trial-btn:hover {
+.trial-btn:hover {
     /* ホバー時は赤枠線の白いボタンに変化 */
     background-color: #fff;
     color: #ff2a2a;
